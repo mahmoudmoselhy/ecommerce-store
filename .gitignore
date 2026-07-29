@@ -33,7 +33,6 @@ yarn-debug.log*
 *.swo
 
 # OS
-.DS_Store
 Thumbs.db
 
 # Lock files (optional - uncomment if you want to track them)
