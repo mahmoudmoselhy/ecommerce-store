@@ -1,5 +1,13 @@
 const fs = require("fs")
+const path = require("path")
 // note for me next time i will use Winston libarary 
+
+const logsDir = path.join(__dirname, '../logs')
+
+// chack if logs exist
+if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true })
+}
 
 const errorHandler = (err , req ,res , next)=>{
 
@@ -13,7 +21,7 @@ const log = `${new Date().toISOString()} - ${err.message}\n`
 
     // write the erorr in log file 
 
-    fs.appendFile("./logs/error.log",log ,(er)=>{
+    fs.appendFile(path.join(logsDir, "error.log"), log ,(er)=>{
         if(er){
             console.error("can not write in the file log erorrr",er)
         }

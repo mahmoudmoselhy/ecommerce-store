@@ -42,3 +42,19 @@ Thumbs.db
 # Misc
 .DS_Store
 *.pem
+
+
+
+
+# Test coverage
+coverage/
+
+# Cache
+.cache/
+.eslintcache
+
+# Docker
+*.pid
+
+# Vite
+vite.config.ts.timestamp-*
