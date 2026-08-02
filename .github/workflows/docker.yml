@@ -71,7 +71,7 @@ jobs:
       # Install Trivy
       # =========================
       - name: Run Trivy Scan (Backend)
-        uses: aquasecurity/trivy-action@0.32.0
+        uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
           format: table
