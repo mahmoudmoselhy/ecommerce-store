@@ -16,7 +16,7 @@
             "header": [
               {
                 "key": "authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2OWJiYzk1ODEzMjM0MzlmMDVlYzc4MzciLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzM5MTYzMjcsImV4cCI6MTc3NjUwODMyN30.nHFrxJWq1ECLxzcm0cn6HJIVUXp0fDSfRmKqjf-4Uec",
+                "value": "{{authorization}}",
                 "type": "text"
               }
             ],
@@ -39,7 +39,7 @@
             "header": [
               {
                 "key": "authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2OWJiYzk1ODEzMjM0MzlmMDVlYzc4MzciLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzM5MTYzMjcsImV4cCI6MTc3NjUwODMyN30.nHFrxJWq1ECLxzcm0cn6HJIVUXp0fDSfRmKqjf-4Uec",
+                "value": "{{authorization}}",
                 "type": "text"
               }
             ],
@@ -71,7 +71,7 @@
             "header": [
               {
                 "key": "authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2OWJiYzk1ODEzMjM0MzlmMDVlYzc4MzciLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzM5MTYzMjcsImV4cCI6MTc3NjUwODMyN30.nHFrxJWq1ECLxzcm0cn6HJIVUXp0fDSfRmKqjf-4Uec",
+                "value": "{{authorization}}",
                 "type": "text"
               }
             ],
@@ -104,7 +104,7 @@
             "header": [
               {
                 "key": "authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2OWJiYzk1ODEzMjM0MzlmMDVlYzc4MzciLCJuYW1lIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NzM5MTYzMjcsImV4cCI6MTc3NjUwODMyN30.nHFrxJWq1ECLxzcm0cn6HJIVUXp0fDSfRmKqjf-4Uec",
+                "value": "{{authorization}}",
                 "type": "text"
               }
             ],
@@ -540,7 +540,7 @@
             "header": [
               {
                 "key": "authorization",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2OWJhZTE4MDBiMzYwOTNiYTY4NjVhMjEiLCJuYW1lIjoibWFobW91ZCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzc0MjIyMDg1LCJleHAiOjE3NzY4MTQwODV9.Lund9cTXfKbzyT1cobXBVuEamsjDn_iBOVxEJQKLct8",
+                "value": "{{authorization}}",
                 "type": "text"
               }
             ],
