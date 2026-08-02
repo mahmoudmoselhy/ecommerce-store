@@ -70,13 +70,13 @@ jobs:
       # =========================
       # Install Trivy
       # =========================
-      - name: Install Trivy
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.66.0_Linux-64bit.deb
-          sudo dpkg -i trivy_0.66.0_Linux-64bit.deb
-
+      - name: Run Trivy Scan (Backend)
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          image-ref: ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL
       # =========================
       # Scan Backend Image
       # =========================
