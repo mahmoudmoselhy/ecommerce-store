@@ -29,6 +29,14 @@ jobs:
       - name: Run Semgrep
         run: semgrep scan --config auto
 
+      - name: Install Backend Dependencies
+        working-directory: Backend
+        run: npm ci
+
+      - name: Run npm audit
+        working-directory: Backend
+        run: npm audit --audit-level=high
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
