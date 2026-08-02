@@ -1,4 +1,4 @@
-name: Build, Scan and Push Docker Images
+name: Build and Push Docker Images
 
 on:
   push:
@@ -10,23 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ==========================
-      # Checkout
-      # ==========================
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # ==========================
+      # =========================
       # Gitleaks
-      # ==========================
+      # =========================
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # ==========================
+      # =========================
       # Semgrep
-      # ==========================
+      # =========================
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -38,9 +35,9 @@ jobs:
       - name: Run Semgrep
         run: semgrep scan --config auto
 
-      # ==========================
+      # =========================
       # Dependency Scan
-      # ==========================
+      # =========================
       - name: Install Backend Dependencies
         working-directory: Backend
         run: npm ci
@@ -49,75 +46,78 @@ jobs:
         working-directory: Backend
         run: npm audit --audit-level=high
 
-      # ==========================
-      # Docker Buildx
-      # ==========================
+      # =========================
+      # Docker
+      # =========================
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # ==========================
-      # Docker Login
-      # ==========================
-      - name: Login to Docker Hub
+      - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # ==========================
-      # Backend Build
-      # ==========================
+      # =========================
+      # Build Backend
+      # =========================
       - name: Build Backend Image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./Backend
-          push: false
-          load: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest \
+            ./Backend
 
-      # ==========================
-      # Backend Trivy Scan
-      # ==========================
+      # =========================
+      # Install Trivy
+      # =========================
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.66.0_Linux-64bit.deb
+          sudo dpkg -i trivy_0.66.0_Linux-64bit.deb
+
+      # =========================
+      # Scan Backend Image
+      # =========================
       - name: Scan Backend Image
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
-          format: table
-          exit-code: 1
-          ignore-unfixed: true
-          severity: HIGH,CRITICAL
+        run: |
+          trivy image \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
 
-      # ==========================
-      # Backend Push
-      # ==========================
+      # =========================
+      # Push Backend
+      # =========================
       - name: Push Backend Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+        run: |
+          docker push \
+            ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
 
-      # ==========================
-      # Frontend Build
-      # ==========================
+      # =========================
+      # Build Frontend
+      # =========================
       - name: Build Frontend Image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./Frontend
-          push: false
-          load: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest \
+            ./Frontend
 
-      # ==========================
-      # Frontend Trivy Scan
-      # ==========================
+      # =========================
+      # Scan Frontend Image
+      # =========================
       - name: Scan Frontend Image
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
-          format: table
-          exit-code: 1
-          ignore-unfixed: true
-          severity: HIGH,CRITICAL
+        run: |
+          trivy image \
+            --severity HIGH,CRITICAL \
+            --exit-code 1 \
+            ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
 
-      # ==========================
-      # Frontend Push
-      # ==========================
+      # =========================
+      # Push Frontend
+      # =========================
       - name: Push Frontend Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
+        run: |
+          docker push \
+            ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
