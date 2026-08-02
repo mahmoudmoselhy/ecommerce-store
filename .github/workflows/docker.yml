@@ -70,13 +70,14 @@ jobs:
       # =========================
       # Install Trivy
       # =========================
-      - name: Run Trivy Scan (Backend)
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
-          format: table
-          exit-code: 1
-          severity: HIGH,CRITICAL
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+
+      - name: Verify Trivy
+        run: trivy --version
       # =========================
       # Scan Backend Image
       # =========================
